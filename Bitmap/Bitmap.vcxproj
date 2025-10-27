@@ -130,7 +130,11 @@
     <ClCompile Include="Bitmap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\bmp.hpp" />
+    <ClInclude Include="bmp.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sample.bmp" />
+    <Image Include="sample2.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

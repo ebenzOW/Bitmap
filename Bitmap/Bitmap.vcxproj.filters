@@ -20,7 +20,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\bmp.hpp">
+    <Image Include="sample.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sample2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bmp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
