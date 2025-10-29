@@ -51,6 +51,15 @@ public:
         }
     }
 
+    void set_pixel(int x, int y, color newColor) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            int index = ((height - 1 - y) * padded_row_size) + (x * 3);
+            data[index] = newColor.b;
+            data[index + 1] = newColor.g;
+            data[index + 2] = newColor.r;
+        }
+    }
+
     void get_pixel(int x, int y, uint8_t& r, uint8_t& g, uint8_t& b) const {
         if (x >= 0 && x < width && y >= 0 && y < height) {
             int index = ((height - 1 - y) * padded_row_size) + (x * 3);

@@ -5,7 +5,7 @@
 
 using namespace std;
 int const MAX_SIZE = 1000;
-int visited[MAX_SIZE][MAX_SIZE];
+bool visited[MAX_SIZE][MAX_SIZE] = { false };
 
 struct pixel {
     int x;
@@ -24,9 +24,28 @@ void floodFill(BMP image, int startX, int startY, color fillColor)
     if (startColor.r == fillColor.r && startColor.b == fillColor.b
         && startColor.g == fillColor.g) return;
 
+    visited[startX][startY] = true;
+
     deque<pixel> fillDeque;
     fillDeque.push_back(pixel(startX, startY));
 
+    while (!fillDeque.empty())
+    {
+        pixel temp = fillDeque.front();
+        fillDeque.pop_front();
+        color tempColor = image.get_pixel(temp.x, temp.y);
+        if (tempColor.r == startColor.r && tempColor.b == startColor.b
+            && tempColor.g == startColor.g) 
+        {
+            image.set_pixel(temp.x, temp.y, fillColor);
+            for(int x = x-1; x<=x+1; x++)
+                for (int y = y - 1; y <= y + 1; y++)
+                {
+                    if ((x < 0 || x > w || y <0 || y > h) && visi)
+                }
+        }
+       
+    }
 }
 
 int main()
