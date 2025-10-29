@@ -41,7 +41,11 @@ void floodFill(BMP image, int startX, int startY, color fillColor)
             for(int x = x-1; x<=x+1; x++)
                 for (int y = y - 1; y <= y + 1; y++)
                 {
-                    if ((x < 0 || x > w || y <0 || y > h) && visi)
+                    if ((x < 0 || x > w || y <0 || y > h) && (visited[x][y] == false))
+                    {
+                        fillDeque.push_back(pixel(x, y));
+                        visited[x][y] = true;
+                    }
                 }
         }
        
@@ -52,6 +56,7 @@ int main()
 {
 
     BMP image("sample2.bmp");
+
     image.write("img1.bmp");
   
 }
