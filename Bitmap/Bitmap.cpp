@@ -31,17 +31,20 @@ void floodFill(BMP image, int startX, int startY, color fillColor)
 
     while (!fillDeque.empty())
     {
+        cout << "looping \n";
         pixel temp = fillDeque.front();
         fillDeque.pop_front();
         color tempColor = image.get_pixel(temp.x, temp.y);
         if (tempColor.r == startColor.r && tempColor.b == startColor.b
             && tempColor.g == startColor.g) 
         {
+            int x = temp.x;
+            int y = temp.y;
             image.set_pixel(temp.x, temp.y, fillColor);
-            for(int x = x-1; x<=x+1; x++)
-                for (int y = y - 1; y <= y + 1; y++)
+            for(x = x-1; x<=temp.x+1; x++) //find the neighbors
+                for (y = y - 1; y <= temp.y + 1; y++)
                 {
-                    if ((x < 0 || x > w || y <0 || y > h) && (visited[x][y] == false))
+                    if ((x >=0 && x <= w && y >=0 && y <= h) && (visited[x][y] == false))
                     {
                         fillDeque.push_back(pixel(x, y));
                         visited[x][y] = true;
@@ -56,8 +59,9 @@ int main()
 {
 
     BMP image("sample2.bmp");
-
-    image.write("img1.bmp");
+    color fill(255, 0, 0);
+    floodFill(image, 300, 300, fill);
+    image.write("C:\\Users\\ebenz\\Downloads\\img1.bmp");
   
 }
 

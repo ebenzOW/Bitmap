@@ -6,10 +6,15 @@
 #include <stdexcept>
 #include <cstdint>
 #include <cstring>
-
-struct color;
-
+struct color {
+    int r;
+    int g;
+    int b;
+    color(int r_, int g_, int b_) :r{ r_ }, g{ g_ }, b{ b_ } {}
+    color() :r{ 0 }, g{ 0 }, b{ 0 } {}
+};
 #pragma pack(push, 1)
+
 struct BMPHeader {
     uint16_t file_type{0x4D42}; // 'BM' in little endian
     uint32_t file_size{0};      // File size in bytes
@@ -29,7 +34,10 @@ struct BMPHeader {
     uint32_t colors_used{0};
     uint32_t colors_important{0};
 };
+
+
 #pragma pack(pop)
+
 class BMP {
 public:
     BMP(int width, int height) : width(width), height(height) {
@@ -145,12 +153,6 @@ private:
     std::vector<uint8_t> data;
 };
 
-struct color{
-int r;
-int g;
-int b;
-color(int r_, int g_, int b_):r{r_},g{g_},b{b_}{}
-color():r{0},g{0},b{0}{}
-};
+
 
 #endif // BMP_HPP
