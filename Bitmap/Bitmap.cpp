@@ -13,7 +13,7 @@ struct pixel {
     pixel(int x_ = 0, int y_ = 0 ) : x{ x_ }, y{ y_ } {}
 };
 
-pixel pixels[10000];
+
 
 void floodFill(BMP &image, int startX, int startY, color fillColor)
 {
@@ -59,27 +59,29 @@ void floodFill(BMP &image, int startX, int startY, color fillColor)
 }
 BMP applySquareBlur(BMP image, int blur_size, string file_name)
 {
+   
     BMP temp = BMP(file_name);
     int halfSize = blur_size/2;
-    int totalR, totalG, totalB = 0;
-    count = 0;
-
-    for(auto pixel_: pixels)
-    {
-
+    int nx = 0;
+    int ny = 0;
+   for(int x = 0; x < 1000; x++)
+   {
+        for(int y = 0; y < 1000; y++)
+        {
+        int totalR, totalG, totalB, count = 0;
+        for(int dy = -halfSize; dy <= halfSize; dy++)
+            for(int dx = -halfSize; dx <= halfSize; dx++)
+            {
+                nx = x + dx;
+                ny = y + dy;
+                if(nx >= 0 && nx < MAX_SIZE && ny >=0 )
+            }
+        }
     }
 }
 
 int main()
 {
-    int count = 0;
-    for(int x = 0; x < 1000; x++)
-        for(int y = 0; y < 1000; y++)
-        {
-            pixels[count] = pixel(x, y);
-            count++; 
-        }
-
     BMP image("sample2.bmp");
     color fill(255, 0, 0);
     floodFill(image, 300, 300, fill);
