@@ -33,7 +33,6 @@ void floodFill(BMP &image, int startX, int startY, color fillColor)
 
     while (!fillDeque.empty())
     {
-        cout << "looping \n";
         pixel temp = fillDeque.front();
         fillDeque.pop_front();
         color tempColor = image.get_pixel(temp.x, temp.y);
@@ -57,7 +56,7 @@ void floodFill(BMP &image, int startX, int startY, color fillColor)
        
     }
 }
-BMP applySquareBlur(BMP image, int blur_size, string file_name)
+void applySquareBlur(BMP &image, int blur_size, string file_name)
 {
    
     BMP temp = BMP(file_name);
@@ -74,10 +73,20 @@ BMP applySquareBlur(BMP image, int blur_size, string file_name)
             {
                 nx = x + dx;
                 ny = y + dy;
-                if(nx >= 0 && nx < MAX_SIZE && ny >=0 )
+                if(nx >= 0 && nx < MAX_SIZE && ny >=0  && ny < MAX_SIZE)
+                {
+                    color neighborColor = image.get_pixel(nx, ny);
+                    totalR += neighborColor.r;
+                    totalG += neighborColor.g;
+                    totalB += neighborColor.b;
+                    count += 1;
+                }
+                color averageColor = color(totalR / count, totalG / count, totalB / count);
+                image.set_pixel(x, y, averageColor);
             }
         }
     }
+    temp.write(file_name + ".bmp");
 }
 
 int main()
@@ -85,7 +94,10 @@ int main()
     BMP image("sample2.bmp");
     color fill(255, 0, 0);
     floodFill(image, 300, 300, fill);
-    image.write("C:\\Users\\erics\\Documents\\GitHub\\Bitmap\\Bitmap\\image2.bmp");
+    BMP blurredImage("sample.bmp");
+    applySquareBlur(blurredImage, 20, "samplecopy");
+
+    image.write("image2.bmp");
   
 }
 
