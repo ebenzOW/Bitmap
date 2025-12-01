@@ -94,7 +94,7 @@ void applySquareBlur(BMP &image, int blur_size, string file_name)
             }
         }
     }
-    source.write(file_name + ".bmp");
+    image.write(file_name + ".bmp");
 }
 
 int main()
