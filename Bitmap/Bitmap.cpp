@@ -47,8 +47,11 @@ void floodFill(BMP &image, int startX, int startY, color fillColor)
                     if (x == temp.x && y == temp.y) continue;
                     if ((x >= 0 && x < w && y >= 0 && y < h) && (visited[x][y] == false))
                     {
+                        color neighborColor = image.get_pixel(x, y);
+                        if(neighborColor.r == startColor.r && neighborColor.g == startColor.g && neighborColor.b == startColor.b){
                         fillDeque.push_back(pixel(x, y));
                         visited[x][y] = true;
+                        }
                     }
                 }
             }
@@ -59,15 +62,18 @@ void floodFill(BMP &image, int startX, int startY, color fillColor)
 void applySquareBlur(BMP &image, int blur_size, string file_name)
 {
    
-    BMP temp = BMP(file_name);
+    BMP source = image;
     int halfSize = blur_size/2;
     int nx = 0;
     int ny = 0;
-   for(int x = 0; x < 1000; x++)
+   for(int x = 0; x < image.get_width(); x++)
    {
-        for(int y = 0; y < 1000; y++)
+        for(int y = 0; y < image.get_height(); y++)
         {
-        int totalR, totalG, totalB, count = 0;
+        int totalR= 0; 
+        int totalG= 0;
+        int totalB= 0; 
+        int count = 0;
         for(int dy = -halfSize; dy <= halfSize; dy++)
             for(int dx = -halfSize; dx <= halfSize; dx++)
             {
@@ -75,18 +81,20 @@ void applySquareBlur(BMP &image, int blur_size, string file_name)
                 ny = y + dy;
                 if(nx >= 0 && nx < MAX_SIZE && ny >=0  && ny < MAX_SIZE)
                 {
-                    color neighborColor = image.get_pixel(nx, ny);
+                    color neighborColor = source.get_pixel(nx, ny);
                     totalR += neighborColor.r;
                     totalG += neighborColor.g;
                     totalB += neighborColor.b;
                     count += 1;
                 }
+            }
+            if(count > 0) {
                 color averageColor = color(totalR / count, totalG / count, totalB / count);
                 image.set_pixel(x, y, averageColor);
             }
         }
     }
-    temp.write(file_name + ".bmp");
+    source.write(file_name + ".bmp");
 }
 
 int main()
